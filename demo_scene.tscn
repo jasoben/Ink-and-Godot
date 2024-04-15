@@ -1,0 +1,132 @@
+[gd_scene load_steps=13 format=3 uid="uid://2oivkm8ucb1a"]
+
+[ext_resource type="Script" path="res://demo.gd" id="1_uqv4x"]
+[ext_resource type="Script" path="res://addons/inkgd/ink_player.gd" id="2_l8o05"]
+[ext_resource type="Resource" uid="uid://dhignvwciehq4" path="res://ink-and-godot-test.ink.json" id="3_qdjj2"]
+[ext_resource type="Texture2D" uid="uid://dmarjx5wx06sw" path="res://images/image-one.png" id="4_johje"]
+[ext_resource type="Texture2D" uid="uid://1v753vxvtpgd" path="res://images/image-two.png" id="5_be88k"]
+[ext_resource type="Texture2D" uid="uid://dqrg8ht1deywf" path="res://images/image-three.png" id="6_2nckj"]
+[ext_resource type="Texture2D" uid="uid://bwn8olf3jp7jd" path="res://images/delightful.png" id="7_uepa2"]
+[ext_resource type="Texture2D" uid="uid://ccnqsc2w8qty7" path="res://images/xkcd.png" id="8_ih3xb"]
+[ext_resource type="Texture2D" uid="uid://b3n1rgf10br7v" path="res://images/superb.png" id="9_ptaie"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8cbem"]
+bg_color = Color(0.145098, 0.443137, 0.607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhpmt"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fdpyk"]
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+
+[node name="DemoScene" type="Control" node_paths=PackedStringArray("choice_button_one", "choice_button_two", "choice_button_three", "text_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uqv4x")
+choice_button_one = NodePath("ChoiceButton")
+choice_button_two = NodePath("ChoiceButton2")
+choice_button_three = NodePath("ChoiceButton3")
+text_label = NodePath("ColorRect/Label")
+
+[node name="InkPlayer" type="Node" parent="."]
+script = ExtResource("2_l8o05")
+ink_file = ExtResource("3_qdjj2")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 651.0
+color = Color(0.576471, 0.462745, 0.67451, 1)
+
+[node name="ChoiceButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 557.0
+offset_top = 580.0
+offset_right = 1135.0
+offset_bottom = 634.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_8cbem")
+
+[node name="ChoiceButton2" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 560.0
+offset_top = 516.0
+offset_right = 1135.0
+offset_bottom = 570.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_8cbem")
+
+[node name="ChoiceButton3" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 559.0
+offset_top = 452.0
+offset_right = 1135.0
+offset_bottom = 506.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_8cbem")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 8.0
+offset_right = 1134.0
+offset_bottom = 130.0
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 1079.0
+offset_bottom = 108.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_hhpmt")
+text = "test"
+label_settings = SubResource("LabelSettings_fdpyk")
+autowrap_mode = 2
+
+[node name="image-one" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(289.819, 386.5)
+scale = Vector2(1.21282, 1.21282)
+texture = ExtResource("4_johje")
+
+[node name="a-talking-ink-pot" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(288, 386.105)
+scale = Vector2(1.20918, 1.20918)
+texture = ExtResource("5_be88k")
+
+[node name="tell-me-more" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(285.25, 385.5)
+scale = Vector2(1.23629, 1.21503)
+texture = ExtResource("6_2nckj")
+
+[node name="delightful" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(288.25, 381.25)
+scale = Vector2(1.23506, 1.18638)
+texture = ExtResource("7_uepa2")
+
+[node name="xkcd" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(287, 388)
+scale = Vector2(0.913043, 0.913043)
+texture = ExtResource("8_ih3xb")
+
+[node name="superb" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(283.25, 387.342)
+scale = Vector2(1.18354, 1.18354)
+texture = ExtResource("9_ptaie")
+
+[connection signal="continued" from="InkPlayer" to="." method="_continued"]
+[connection signal="ended" from="InkPlayer" to="." method="_ended"]
+[connection signal="loaded" from="InkPlayer" to="." method="_story_loaded"]
+[connection signal="prompt_choices" from="InkPlayer" to="." method="_prompt_choices"]
+[connection signal="pressed" from="ChoiceButton" to="." method="_select_choice" binds= [0]]
+[connection signal="pressed" from="ChoiceButton2" to="." method="_select_choice" binds= [1]]
