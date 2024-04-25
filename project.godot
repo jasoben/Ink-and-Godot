@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 __InkRuntime="*res://addons/inkgd/ink_runtime.gd"
 
+[display]
+
+window/size/mode=2
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/inkgd/plugin.cfg")
